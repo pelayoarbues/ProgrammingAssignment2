@@ -10,13 +10,18 @@
 ## that can cache its inverse.
 
 makeCacheMatrix <- function(x = matrix()) {
-        m <- NULL
-        set <- function(y) {
+        m <- NULL #variable m is declared immediately and 
+        #assigned the value NULL using the standard assignment operator (<-).
+        set <- function(y) { #"set" functions defined within the containing makeCachematrix() 
+#                 function require the special assignment operator (<<-) to update the value of 
+#                 variable m; it is important to remember variable m was declared and initialised 
+#                 by makeVector(). 
                 x <<- y
                 m <<- NULL
         }
         get <- function() x
-        setinv <- function(inv) m <<- inv
+        setinv <- function(inv) m <<- inv #Uses inv, that returns 
+#         inverse of A where A is a square matrix.
         getinv <- function() m
         list(set = set, get = get,
              setinv = setinv,
@@ -29,13 +34,13 @@ makeCacheMatrix <- function(x = matrix()) {
 ## cachesolve should retrieve the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
-        if (nrow(x$get()) != ncol(x$get())) {
+        if (nrow(x$get()) != ncol(x$get())) { #Info about invertibility
                 message("No possible to invert a rectangular matrix")
-                return()
+                return() #Returns message about invertibility
         }
         ## Return a matrix that is the inverse of x
         m <- x$getinv()
-        if(!is.null(m)) {
+        if(!is.null(m)) { #If the inverse has been calculated 
                 message("getting cached data")
                 return(m)
         }
